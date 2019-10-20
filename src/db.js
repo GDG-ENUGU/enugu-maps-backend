@@ -12,10 +12,10 @@ mongoose.connection.on('error', (err) => {
 });
 
 const initMongoDB = () => {
-  mongoose.set('userNewUrlParser', true);
-  mongoose.set('userFindAndModify', false);
-  mongoose.set('userCreateIndex', true);
-  mongoose.set('userUnifiedTopology', true);
+  mongoose.set('useNewUrlParser', true);
+  mongoose.set('useFindAndModify', false);
+  mongoose.set('useCreateIndex', true);
+  mongoose.set('useUnifiedTopology', true);
   mongoose.connect(process.env.MONGO_URI, {
     keepAlive: 1,
     useCreateIndex: true,
