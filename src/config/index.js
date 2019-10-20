@@ -1,11 +1,11 @@
 const config = {
-  port: 3000,
-  env: 'development',
   whitelist: null,
   ddosConfig: {
     burst: 100,
     limit: 100,
   },
+  roles: ['ADMIN', 'USER'],
+  status: ['ACTIVE', 'BLOCKED', 'DELETED', 'PENDING'],
 };
 
 module.exports = config;
