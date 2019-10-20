@@ -1,6 +1,6 @@
 const server = require('./server');
 const {
-  port, env
+  port, env,
 } = require('./config');
 
 

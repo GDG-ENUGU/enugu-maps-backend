@@ -1,7 +1,7 @@
 const httpStatus = require('http-status');
 const expressValidation = require('express-validation');
-const { Error } = require('../utils/api-response');
-const { env } = require('../config');
+const {Error} = require('../utils/api-response');
+const {env} = require('../config');
 
 /**
  * Error handler. Send stacktrace only during development
@@ -61,10 +61,7 @@ exports.converter = (err, req, res, next) => {
   return handler(convertedError, req, res);
 };
 
-/**
- * Catch 404 and forward to error handler
- * @public
- */
+
 exports.notFound = (req, res) => {
   const err = new Error({
     message: 'Not found',

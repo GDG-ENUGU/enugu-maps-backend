@@ -1,3 +1,5 @@
+/* eslint-disable require-jsdoc */
+/* eslint-disable valid-jsdoc */
 const httpStatus = require('http-status');
 
 /**
@@ -28,10 +30,11 @@ class ApiError extends ExtendableError {
    * Creates an API error.
    * @param {string} message - Error message.
    * @param {number} status - HTTP status code of error.
-   * @param {boolean} isPublic - Whether the message should be visible to user or not.
+   * @param {boolean} isPublic - flag to check if message is visible or not
    */
   constructor({
-    message, errors, stack, status = httpStatus.INTERNAL_SERVER_ERROR, isPublic = false,
+    message, errors, stack,
+    status = httpStatus.INTERNAL_SERVER_ERROR, isPublic = false,
   }) {
     super({
       errors,
@@ -45,7 +48,7 @@ class ApiError extends ExtendableError {
 
 /**
  * @function Api succes response
- * @param {string} typeOrMessage Can be "FETCH","UPDATE","DELETE" or any custom message
+ * @param {string} typeOrMessage "FETCH","UPDATE","DELETE" or custom message
  * @param {any} data Any data type array, object etc.
  */
 function success(typeOrMessage, data = null) {
@@ -74,16 +77,16 @@ function success(typeOrMessage, data = null) {
     message,
   };
 }
-let responseMessage={
-  respMsg:{
-      success: "",
-      message: "",
-      data: ""
-  }
-}
+const responseMessage={
+  respMsg: {
+    success: '',
+    message: '',
+    data: '',
+  },
+};
 
 module.exports = {
   Error: ApiError,
   success,
-  ResponseMessage:responseMessage
+  ResponseMessage: responseMessage,
 };
