@@ -1,9 +1,12 @@
 const server = require('./server');
-const {
-  port, env,
-} = require('./config');
+const db = require('./db');
+require('dotenv').config();
 
+const PORT = process.env.PORT;
+const ENV = process.env.ENVIRONMENT;
 
-server.listen(port, () => {
-  console.info(`Server started on port ${port} (${env})`);
+db.initMongoDB();
+
+server.listen(PORT, () => {
+  console.info(`Server started on port ${PORT} => (${ENV})`);
 });

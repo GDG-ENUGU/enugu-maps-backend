@@ -1,6 +1,4 @@
 const config = {
-  port: 3000,
-  env: 'development',
   whitelist: null,
   ddosConfig: {
     burst: 100,
