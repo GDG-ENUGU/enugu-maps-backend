@@ -107,8 +107,56 @@ const login = async (req, res, next) => {
   }
 };
 
+const refreshToken = async (req, res, next) => {
+  try {
+    const {refreshToken} = req.body;
+
+    const user = await User.findOne({
+      sessions: {
+        $elemMatch: {
+          is_active: true,
+          refresh_token: refreshToken,
+        },
+      },
+    });
+
+    if (!user) {
+      throw new Error({
+        message: 'Refresh token did not match',
+        status: httpStatus.CONFLICT,
+      });
+    }
+    const refreshTokenKey = uuidv4() + user._id;
+
+    await User.updateOne(
+        {
+          '_id': user._id,
+          'sessions.refresh_token': refreshToken,
+        },
+        {
+          'sessions.$.refresh_token': refreshTokenKey,
+          'sessions.$.updated_at': DateTime.local().toSeconds(),
+        }
+    );
+
+    const expiresIn = DateTime.local()
+        .plus({minutes: jwtExpirationInterval})
+        .toSeconds();
+
+    res.set('authorization', user.token());
+    res.set('x-refresh-token', refreshTokenKey);
+    res.set('x-token-expiry-time', expiresIn);
+
+    return res.status(httpStatus.NO_CONTENT).json();
+  } catch (error) {
+    return next(error);
+  }
+};
+
+
 module.exports = {
   register,
   login,
+  refreshToken,
 };
 
